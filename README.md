@@ -23,6 +23,12 @@ polka supports the following commands:
 
 ## generate (g)
 
+### scaffold
+
+### model
+
+### CRUD
+
 ## test (t)
 
 ## bench (b)
