@@ -14,7 +14,6 @@ func main() {
 
 	fmt.Println("args = ", args)
 
-
 	cli := &cli.CLI{
 		Args:     args,
 		Commands: Commands,

@@ -7,6 +7,7 @@ package main
 
 import (
 	"os"
+  "fmt"
 	"github.com/PolkaBand/polka/command"
 	"github.com/mitchellh/cli"
 )
@@ -15,6 +16,7 @@ import (
 var Commands map[string]cli.CommandFactory
 
 func init() {
+
 	ui := &cli.BasicUi{Writer: os.Stdout}
 
 	Commands = map[string]cli.CommandFactory{
@@ -22,6 +24,8 @@ func init() {
 		"version": func() (cli.Command, error) {
 			ver := "0.0.1"
 			rel := "a"
+
+      fmt.Println("in version command setup")
 
 			return &command.VersionCommand{
 				Revision:          "",
@@ -32,4 +36,5 @@ func init() {
 		},
 
 	}
+
 }
