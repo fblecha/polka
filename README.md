@@ -23,6 +23,22 @@ polka supports the following commands:
 
 ## generate (g)
 
+```bash
+polka generate endpoint thing
+```
+generates the following code:
+```
+app/
+  {{thing}} /
+    endpoint /
+      thing_endpoint_create.js
+      thing_endpoint_read.js
+      thing_endpoint_update.js
+      thing_endpoint_delete.js
+      thing_endpoint_health.js
+```
+
+
 ### scaffold
 
 ### model

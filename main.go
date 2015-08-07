@@ -8,12 +8,9 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-
 type Concept struct {
 	Name	string
 }
-
-
 
 func main() {
 	fmt.Println("Let's Polka!")
@@ -33,7 +30,7 @@ func main() {
 		log.Println(err)
 	}
 
-
+		//command = polka generate endpoint thing
 	//layout the following:
 	// {{thing}} /
 	// 		endpoint /
@@ -45,29 +42,14 @@ func main() {
 	//						thing_endpoint_health.js
 
 	concept := Concept{"accordion"}
-	endpoints := [...]string {
-		"_create.js",
-		"_read.js",
-		"_update.js",
-		"_delete.js",
-		"_health.js",
-	}
-	template, err := template.New("blah").Parse("{{.Name}} is a new endpoint\n")
+	endpoints := [...]string { "create", "read", "update", "delete", "health" }
 
 	for _, value := range endpoints {
-
-		fmt.Println(concept.Name, "_endpoint", value )
-
-
+		templateFilename := fmt.Sprintf("templates/endpoint/%v.js", value)
+		t, _ := template.ParseFiles(templateFilename)
+		err = t.Execute(os.Stdout, concept)
 		if err != nil { panic(err) }
-		err = template.Execute(os.Stdout, concept)
-		if err != nil { panic(err) }
-
 	}
-
-
-
-
 
 
 	os.Exit(exitStatus)
