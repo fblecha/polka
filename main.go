@@ -30,17 +30,6 @@ func main() {
 		log.Println(err)
 	}
 
-		//command = polka generate endpoint thing
-	//layout the following:
-	// {{thing}} /
-	// 		endpoint /
-	//	 					thing_endpoint_create.js
-	//						thing_endpoint_read.js
-	//						thing_endpoint_update.js
-	//						thing_endpoint_delete.js
-	//						thing_endpoint_list.js
-	//						thing_endpoint_health.js
-
 	concept := Concept{"accordion"}
 	endpoints := [...]string { "create", "read", "update", "delete", "health" }
 
