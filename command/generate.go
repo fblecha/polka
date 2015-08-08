@@ -37,12 +37,14 @@ Subcommands:
 func generateEndpoint(name string) {
 	concept := Concept{name}
 
-	endpoints := [...]string { "create", "read", "update", "delete", "health" }
+	endpoints := [...]string { "create.js", "read.js", "update.js", "delete.js", "health.js" }
 
 	for _, value := range endpoints {
-		templateFilename := fmt.Sprintf("templates/endpoint/%v.js", value)
-		t, _ := template.ParseFiles(templateFilename)
-		err := t.Execute(os.Stdout, concept)
+		//templateFilename := fmt.Sprintf("templates/endpoint/%v.js", value)
+		t, err := template.ParseGlob("templates/endpoint/*.js") // [templateFilename, "templates/endpoint/blah.js"] )
+		if err != nil { panic(err) }
+
+		err = t.ExecuteTemplate(os.Stdout, value, concept)
 		if err != nil { panic(err) }
 	}
 }
