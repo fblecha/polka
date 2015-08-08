@@ -1,1 +1,1 @@
-I'm the read endpoint
+I'm the read endpoint for {{ .Name }}
