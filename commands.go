@@ -4,10 +4,9 @@ package main
  Cribbed **heavily** from https://github.com/hashicorp/consul
 */
 
-
 import (
 	"os"
-  //"fmt"
+	//"fmt"
 	"github.com/PolkaBand/polka/command"
 	"github.com/mitchellh/cli"
 )
@@ -22,8 +21,8 @@ func init() {
 
 		"generate": func() (cli.Command, error) {
 			return &command.GenerateCommand{
-				Name:							"blah",
-				Ui:                ui,
+				Name: "blah",
+				Ui:   ui,
 			}, nil
 		},
 
@@ -38,7 +37,6 @@ func init() {
 				Ui:                ui,
 			}, nil
 		},
-
 	}
 
 }

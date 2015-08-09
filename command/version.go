@@ -24,8 +24,7 @@ func (c *VersionCommand) Help() string {
 }
 
 func (c *VersionCommand) Run(_ []string) int {
-  fmt.Println("in version.Run()")
-
+	fmt.Println("in version.Run()")
 
 	var versionString bytes.Buffer
 	fmt.Fprintf(&versionString, "Polka %s", c.Version)
