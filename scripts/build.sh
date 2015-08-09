@@ -42,5 +42,5 @@ echo "--> Building..."
 go build \
     -ldflags "${CGO_LDFLAGS} -X main.GitCommit ${GIT_COMMIT}${GIT_DIRTY} -X main.GitDescribe ${GIT_DESCRIBE}" \
     -v \
-    -o bin/consul${EXTENSION}
-cp bin/consul${EXTENSION} ${GOPATHSINGLE}/bin
+    -o bin/polka${EXTENSION}
+cp bin/polka${EXTENSION} ${GOPATHSINGLE}/bin
