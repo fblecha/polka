@@ -35,30 +35,26 @@ func main() {
 	os.Exit(exitStatus)
 }
 
-func FindTemplateDir() (string, error) {
-	fp, e := osext.ExecutableFolder()
-	fmt.Printf("exec folder path = %v & err = %v\n", fp, e )
+func TestTemplateDir(dirName string) bool  {
+	fmt.Printf("looking in %v\n", dirName)
+	_, err := os.Stat(dirName);
+	return err == nil  //if err == true, we found the dir; it's false otherwise
+}
 
+func FindTemplateDir() (string, error) {
 	if folderPath, err := osext.ExecutableFolder(); err == nil {
 		fmt.Println(folderPath)
-		//maybe we're running this in dev mode, so templates could be at folderPath/templates
 		devTemplateDirName := fmt.Sprintf("%v/templates", folderPath)
-		fmt.Printf("(dev)looking in %v\n", devTemplateDirName)
-		if _, err := os.Stat(devTemplateDirName); err == nil {
-			return devTemplateDirName, err
-		} else {
-			//maybe we're running this from a brew install, so the templates would be at folderPath/../share/templates
-			brewTemplateDirName := fmt.Sprintf("%v/../share/templates", folderPath)
-					fmt.Printf("(brew)looking in %v\n", brewTemplateDirName)
-			if _, err := os.Stat(brewTemplateDirName); err == nil {
-				return brewTemplateDirName, err
-			} else {
-				return "", err
-			}
+		brewTemplateDirName := fmt.Sprintf("%v/../share/templates", folderPath)
+
+		//maybe we're running this in dev mode, so templates could be at folderPath/templates
+		if TestTemplateDir(devTemplateDirName) {
+			return devTemplateDirName, nil
+		} else if TestTemplateDir(brewTemplateDirName) {
+			return brewTemplateDirName, nil
 		}
-
 	}
-
 	//we only reach this part if err != nil
 	return "", errors.New("unable to find templates dir")
+
 }
