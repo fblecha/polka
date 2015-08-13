@@ -29,7 +29,7 @@ Generate a lambda function of type [subcommand] to implement the concept.
 
 Subcommands:
 
-	endpoint	an endpoint that supports CRUD and a health check on (concept)
+	endpoint	an endpoint that supports CRUD and a health check on (concept)\n
 `
 	return strings.TrimSpace(helpText)
 }
