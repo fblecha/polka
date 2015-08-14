@@ -41,15 +41,15 @@ func generateEndpoint(name string) {
 	endpoints := [...]string{"create.js", "read.js", "update.js", "delete.js", "health.js"}
 
 	for _, value := range endpoints {
-		//templateFilename := fmt.Sprintf("templates/endpoint/%v.js", value)
-		t, err := template.ParseGlob("templates/endpoint/*.js") // [templateFilename, "templates/endpoint/blah.js"] )
+		//TODO assume that the implementation language will be JavaScript (js) for now
+		t, err := template.ParseGlob("templates/js/endpoint/*.js") // [templateFilename, "templates/endpoint/blah.js"] )
 		if err != nil {
-			panic(err)
+			log.Panic(err)
 		}
 
 		err = t.ExecuteTemplate(os.Stdout, value, concept)
 		if err != nil {
-			panic(err)
+			log.Panic(err)
 		}
 	}
 }

@@ -47,6 +47,7 @@ func TestTemplateDir(dirName string) bool  {
 func FindTemplateDir() (string, error) {
 	if folderPath, err := osext.ExecutableFolder(); err == nil {
 		log.Println(folderPath)
+
 		devTemplateDirName := fmt.Sprintf("%v/templates", folderPath)
 		brewTemplateDirName := fmt.Sprintf("%v/../share/templates", folderPath)
 
