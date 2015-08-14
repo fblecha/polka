@@ -7,6 +7,7 @@ package command
 import (
 	"bytes"
 	"fmt"
+	"log"
 	//"github.com/hashicorp/consul/consul"
 	"github.com/mitchellh/cli"
 )
@@ -24,7 +25,7 @@ func (c *VersionCommand) Help() string {
 }
 
 func (c *VersionCommand) Run(_ []string) int {
-	fmt.Println("in version.Run()")
+	log.Println("in version.Run()")
 
 	var versionString bytes.Buffer
 	fmt.Fprintf(&versionString, "Polka %s", c.Version)

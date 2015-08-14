@@ -28,7 +28,7 @@ func main() {
 		HelpFunc: cli.BasicHelpFunc("polka"),
 	}
 
-	fmt.Printf("topflags = %v \n", cli.Args)
+	log.Printf("topflags = %v \n", cli.Args)
 
 	exitStatus, err := cli.Run()
 	if err != nil {
@@ -39,14 +39,14 @@ func main() {
 }
 
 func TestTemplateDir(dirName string) bool  {
-	fmt.Printf("looking in %v\n", dirName)
+	log.Printf("looking in %v\n", dirName)
 	_, err := os.Stat(dirName);
 	return err == nil  //if err == true, we found the dir; it's false otherwise
 }
 
 func FindTemplateDir() (string, error) {
 	if folderPath, err := osext.ExecutableFolder(); err == nil {
-		fmt.Println(folderPath)
+		log.Println(folderPath)
 		devTemplateDirName := fmt.Sprintf("%v/templates", folderPath)
 		brewTemplateDirName := fmt.Sprintf("%v/../share/templates", folderPath)
 

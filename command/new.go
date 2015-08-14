@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/mitchellh/cli"
 	"os"
+	"log"
 	"strings"
 	//"text/template"
 )
@@ -23,7 +24,7 @@ type PolkaDir struct {
 }
 
 func (d *PolkaDir) Create() error {
-	fmt.Printf("creating %v/%v \n", d.RootDir, d.DirName)
+	log.Printf("creating %v/%v \n", d.RootDir, d.DirName)
 	return nil
 }
 
@@ -42,7 +43,7 @@ Generate a new polka application
 //Create a new app in the absolute location specified by name
 //eg it should be ""/Users/fb3/code/todo" not "todo"
 func CreateAppRootDir(name string) error {
-	fmt.Printf("app root dir = %v\n", name)
+	log.Printf("app root dir = %v\n", name)
 
 	//mode := int(0777)
 	if err := os.MkdirAll(name, 0777); err != nil {
@@ -72,7 +73,7 @@ func CreateNewApp(rootDir string, name string) {
 
 func (c *NewCommand) Run(args []string) int {
 
-	fmt.Printf("new command # of args = %v\n", len(args))
+	log.Printf("new command # of args = %v\n", len(args))
 	if len(args) < 1 {
 		fmt.Printf("%v", c.Help())
 		return 1
@@ -83,7 +84,7 @@ func (c *NewCommand) Run(args []string) int {
 		CreateNewApp(currentDir, args[0])
 		return 0
 	} else {
-		fmt.Println(err)
+		log.Fatal(err)
 		return 1
 	}
 }

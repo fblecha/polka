@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"github.com/mitchellh/cli"
 	"os"
+	"log"
 	"strings"
 	"text/template"
 )
@@ -65,7 +66,7 @@ func (c *GenerateCommand) Run(args []string) int {
 	case "endpoint":
 		generateEndpoint(args[1])
 	case "integration":
-		fmt.Println("generating integrations are not implemented yet")
+		log.Println("generating integrations are not implemented yet")
 	}
 
 	return 0
