@@ -11,7 +11,7 @@ import (
 	"github.com/mitchellh/cli"
 )
 
-// Commands is the mapping of all the available Consul commands.
+// Commands is the mapping of all the available Polka commands.
 var Commands map[string]cli.CommandFactory
 
 func init() {
@@ -25,6 +25,14 @@ func init() {
 				Ui:   ui,
 			}, nil
 		},
+
+		"new": func() (cli.Command, error) {
+			return &command.NewCommand{
+				Name: "new",
+				Ui:   ui,
+			}, nil
+		},
+
 
 		"version": func() (cli.Command, error) {
 			ver := "0.0.1"

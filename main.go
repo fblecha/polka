@@ -12,12 +12,13 @@ import (
 
 func main() {
 
+
 	templateDir, err := FindTemplateDir()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Printf("template dir = %v\n", templateDir)
+	log.Printf("template dir = %v\n", templateDir)
 
 	args := os.Args[1:]
 
@@ -26,6 +27,8 @@ func main() {
 		Commands: Commands,
 		HelpFunc: cli.BasicHelpFunc("polka"),
 	}
+
+	fmt.Printf("topflags = %v \n", cli.Args)
 
 	exitStatus, err := cli.Run()
 	if err != nil {
