@@ -35,10 +35,14 @@ Subcommands:
 	return strings.TrimSpace(helpText)
 }
 
-func generateEndpoint(name string) {
-	concept := Concept{name}
+func GetEndpoints() []string {
+	endpoints := []string{"create.js", "read.js", "update.js", "delete.js", "health.js"}
+	return endpoints
+}
 
-	endpoints := [...]string{"create.js", "read.js", "update.js", "delete.js", "health.js"}
+func GenerateEndpoint(name string) {
+	concept := Concept{name}
+	endpoints := GetEndpoints()
 
 	for _, value := range endpoints {
 		//TODO assume that the implementation language will be JavaScript (js) for now
@@ -64,7 +68,7 @@ func (c *GenerateCommand) Run(args []string) int {
 
 	switch subcommand {
 	case "endpoint":
-		generateEndpoint(args[1])
+		GenerateEndpoint(args[1])
 	case "integration":
 		log.Println("generating integrations are not implemented yet")
 	}
