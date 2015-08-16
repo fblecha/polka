@@ -10,6 +10,7 @@ import (
 	"os"
 	"log"
 	"strings"
+	"github.com/PolkaBand/polka/utils"
 	"text/template"
 )
 
@@ -46,14 +47,16 @@ func GenerateEndpoint(name string) {
 
 	for _, value := range endpoints {
 		//TODO assume that the implementation language will be JavaScript (js) for now
-		t, err := template.ParseGlob("templates/js/endpoint/*.js") // [templateFilename, "templates/endpoint/blah.js"] )
-		if err != nil {
-			log.Panic(err)
-		}
+		if templateDir, err := utils.FindTemplateDir(); err == nil {
+			templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
+			t, err := template.ParseGlob(templatesGlob)
+			if err != nil {
+				log.Panic(err)
+			}
 
-		err = t.ExecuteTemplate(os.Stdout, value, concept)
-		if err != nil {
-			log.Panic(err)
+			if err = t.ExecuteTemplate(os.Stdout, value, concept); err != nil {
+				log.Panic(err)
+			}
 		}
 	}
 }

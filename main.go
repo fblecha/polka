@@ -3,12 +3,13 @@ package main
 import (
 	"log"
 	"os"
+	"github.com/PolkaBand/polka/utils"
 	"github.com/mitchellh/cli"
 )
 
 func main() {
 
-	templateDir, err := FindTemplateDir()
+	templateDir, err := utils.FindTemplateDir()
 	if err != nil {
 		log.Fatal(err)
 	}
