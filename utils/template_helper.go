@@ -13,6 +13,7 @@ func TemplateDirExists(dirName string) bool  {
 	return err == nil  //if err == true, we found the dir; it's false otherwise
 }
 
+// FindTemplateDir returns the absolute path to the templates directory as a string.
 func FindTemplateDir() (string, error) {
 	if folderPath, err := osext.ExecutableFolder(); err == nil {
 		log.Println(folderPath)
