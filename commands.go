@@ -26,6 +26,13 @@ func init() {
 			}, nil
 		},
 
+		"doc": func() (cli.Command, error) {
+			return &command.DocCommand{
+				Name: "blah",
+				Ui:   ui,
+			}, nil
+		},
+
 		"generate": func() (cli.Command, error) {
 			return &command.GenerateCommand{
 				Name: "blah",
