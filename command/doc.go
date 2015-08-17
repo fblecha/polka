@@ -23,7 +23,10 @@ Generates documentation for your polka app.
 If no subcommand is specified, polka documents everything.
 
 Subcommands:
-
+	endpoints - list out all the endpoints in this application
+	integrations -
+	arch	- document the architectur
+	resources - summary table of the resources requested for each lambda function
 `
 	return strings.TrimSpace(helpText)
 }
