@@ -18,37 +18,17 @@ What needs to be setup for polka to work?
 * AWS Services
 * AWS IAM users/roles/policies
 
-# Commands (shortcode)
-polka supports the following commands:
+# Commands
 
-## generate (g)
+```shell
+$ polka
 
-```bash
-polka generate endpoint thing
+usage: polka [--version] [--help] <command> [<args>]
+
+Available commands are:
+    deploy      deploys a polka app to AWS
+    doc         Generates documentation for your polka app
+    generate    generates lambda functions for endpoints
+    new         creates a new polka app
+    version     Prints the Polka version
 ```
-generates the following code:
-```
-app/
-  {{thing}} /
-    endpoint /
-      thing_endpoint_create.js
-      thing_endpoint_read.js
-      thing_endpoint_update.js
-      thing_endpoint_delete.js
-      thing_endpoint_health.js
-```
-
-
-### scaffold
-
-### model
-
-### CRUD
-
-## test (t)
-
-## bench (b)
-
-## doc (d)
-
-## cost (c)
