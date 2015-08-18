@@ -11,14 +11,14 @@
 
 __The following completely does not work, but is README driven development__.  E.g. write how you want the readme to work/read first, then implement the code.
 
-# Quick Start 
+# Quick Start
 
 This does not work yet...
 
 ```shell
 $ brew tap INSERT_TAP
 $ brew install polka
-$ cd code
+$ cd ~/code
 $ polka new todo_app
 $ cd todo_app
 $ ???
