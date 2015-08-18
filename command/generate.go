@@ -48,7 +48,7 @@ func GetEndpoints() []string {
 }
 
 
-func GenerateEndpoint(name string) {
+func MakeAllEndpoints(name string) {
 	concept := Concept{name}
 	for _, templateName := range GetEndpoints() {
 		FindAndExecuteTemplate(templateName, concept)
@@ -105,7 +105,7 @@ func (c *GenerateCommand) Run(args []string) int {
 
 	switch subcommand {
 	case "endpoint":
-		GenerateEndpoint(args[1])
+		MakeAllEndpoints(args[1])
 	case "integration":
 		log.Println("generating integrations are not implemented yet")
 	}
