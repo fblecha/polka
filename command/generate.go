@@ -83,9 +83,9 @@ func FindAndExecuteTemplate(templateName string, concept Concept) {
 				outputFileName := fmt.Sprintf("%v/%v", endpointDir, templateName )
 				log.Println(outputFileName)
 
-				outputFilename, err := os.Create(outputFileName)
+				outputFile, err := os.Create(outputFileName)
 
-				if err = t.ExecuteTemplate(outputFilename, templateName, concept); err != nil {
+				if err = t.ExecuteTemplate(outputFile, templateName, concept); err != nil {
 					log.Fatal(err)
 				}
 			}
