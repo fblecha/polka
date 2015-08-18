@@ -1,24 +1,38 @@
+***Totally experimental still - use at your own risk :-)***
 
-# Totally experimental still - use at your own risk :-)
+<!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
+
+- [Quick Start](#quick-start)
+- [Examples](#examples)
+- [Setup](#setup)
+- [Polka Commands](#polka-commands)
+<!-- /TOC -->
+
 
 __The following completely does not work, but is README driven development__.  E.g. write how you want the readme to work/read first, then implement the code.
 
-# Two-minute Setup  -
-1. Setup homebrew:   **DOES NOT WORK**
+# Quick Start 
 
-  brew install polka
+This does not work yet...
 
-2. polka scaffold something
-3. what else?
+```shell
+$ brew tap INSERT_TAP
+$ brew install polka
+$ cd code
+$ polka new todo_app
+$ cd todo_app
+$ ???
+```
 
-# Example Project
+# Examples
+
 
 # Setup
 What needs to be setup for polka to work?
 * AWS Services
 * AWS IAM users/roles/policies
 
-# Commands
+# Polka Commands
 
 ```shell
 $ polka
