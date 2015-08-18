@@ -37,28 +37,59 @@ Subcommands:
 }
 
 func GetEndpoints() []string {
-	endpoints := []string{"create.js", "read.js", "update.js", "delete.js", "health.js"}
+	endpoints := []string{
+		"create.js",
+		"read.js",
+		"update.js",
+		"delete.js",
+		"health.js",
+	}
 	return endpoints
 }
+
 
 func GenerateEndpoint(name string) {
 	concept := Concept{name}
 	endpoints := GetEndpoints()
 
-	for _, value := range endpoints {
-		//TODO assume that the implementation language will be JavaScript (js) for now
-		if templateDir, err := utils.FindTemplateDir(); err == nil {
-			templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
-			t, err := template.ParseGlob(templatesGlob)
-			if err != nil {
-				log.Panic(err)
-			}
+	if templateDir, err := utils.FindTemplateDir(); err == nil {
 
-			if err = t.ExecuteTemplate(os.Stdout, value, concept); err != nil {
-				log.Panic(err)
+		appDir, err := GetAppDir()
+		if err != nil {
+			log.Fatal(err)
+		}
+		endpointDir := fmt.Sprintf("%v/app/endpoint", appDir )
+
+		log.Printf("trying to make %v\n", endpointDir )
+
+		if err := os.MkdirAll(endpointDir, 0777); err == nil  {
+
+			log.Printf("should have made %v\n", endpointDir )
+
+			for _, value := range endpoints {
+				//TODO assume that the implementation language will be JavaScript (js) for now
+
+
+				templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
+				t, err := template.ParseGlob(templatesGlob)
+				if err != nil {
+					log.Panic(err)
+				}
+
+
+				outputFileName := fmt.Sprintf("%v/%v", endpointDir, value )
+				//log.Println("generate endpoint---=-")
+				log.Println(outputFileName)
+
+				outputFile, err := os.Create(outputFileName)
+
+				if err = t.ExecuteTemplate(outputFile, value, concept); err != nil {
+					log.Panic(err)
+				}
 			}
 		}
 	}
+
 }
 
 func (c *GenerateCommand) Run(args []string) int {

@@ -24,8 +24,9 @@ type PolkaDir struct {
 }
 
 func (d *PolkaDir) Create() error {
-	log.Printf("creating %v/%v \n", d.RootDir, d.DirName)
-	return nil
+	newDir := fmt.Sprintf("%v/%v", d.RootDir, d.DirName)
+	log.Printf("creating %v \n", newDir )
+	return os.MkdirAll(newDir, 0777)
 }
 
 
@@ -72,8 +73,6 @@ func CreateNewApp(rootDir string, name string) {
 }
 
 func (c *NewCommand) Run(args []string) int {
-
-	log.Printf("new command # of args = %v\n", len(args))
 	if len(args) < 1 {
 		fmt.Printf("%v", c.Help())
 		return 1
