@@ -48,45 +48,48 @@ func GetEndpoints() []string {
 }
 
 
-func MakeAllEndpoints(name string) {
-	concept := Concept{name}
+func MakeAllEndpoints(currentDir string, conceptName string) {
+	concept := Concept{conceptName}
 	for _, templateName := range GetEndpoints() {
-		FindAndExecuteTemplate(templateName, concept)
+		FindAndExecuteTemplate(currentDir, templateName, concept)
 	}
 }
 
-func MakeEndpointDir() (string, error) {
-	if appDir, err := GetAppDir(); err == nil {
-		endpointDir := fmt.Sprintf("%v/app/endpoint", appDir )
-		log.Printf("trying to make %v\n", endpointDir )
-		if err := os.MkdirAll(endpointDir, 0777); err == nil {
-			log.Printf("should have made %v\n", endpointDir )
-			return endpointDir, nil
-		} else {
-			return "", err
-		}
+func MakeEndpointDir(currentDir string, concept Concept) (string, error) {
+	endpointDir := fmt.Sprintf("%v/app/endpoint/%v", currentDir, concept.Name )
+	log.Printf("trying to make %v\n", endpointDir )
+	if err := os.MkdirAll(endpointDir, 0777); err == nil {
+		log.Printf("should have made %v\n", endpointDir )
+		return endpointDir, nil
 	} else {
 		return "", err
 	}
 }
 
-func FindAndExecuteTemplate(templateName string, concept Concept) {
+func FindAndExecuteTemplate(currentDir string, templateName string, concept Concept) error {
 
-	if templateDir, err := utils.FindTemplateDir(); err == nil {
-
-		if endpointDir, err := MakeEndpointDir(); err == nil {
-			//TODO assume that js is the only implementation language for now
-			templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
-
-			if t, err := template.ParseGlob(templatesGlob); err == nil {
-				outputFileName := fmt.Sprintf("%v/%v", endpointDir, templateName )
-				outputFile, err := os.Create(outputFileName)
-				if err = t.ExecuteTemplate(outputFile, templateName, concept); err != nil {
-					log.Fatal(err)
-				}
-			}
-		}
+	templateDir, err := utils.FindTemplateDir()
+	if err != nil {
+		return err
 	}
+
+	endpointDir, err := MakeEndpointDir(currentDir, concept)
+	if err != nil {
+		return err
+	}
+	//TODO assume that js is the only implementation language for now
+	templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
+
+	t, err := template.ParseGlob(templatesGlob)
+	if err != nil {
+		return err
+	}
+	outputFileName := fmt.Sprintf("%v/%v", endpointDir, templateName )
+	outputFile, err := os.Create(outputFileName)
+	if err != nil {
+		return err
+	}
+	return t.ExecuteTemplate(outputFile, templateName, concept)
 }
 
 
@@ -99,14 +102,19 @@ func (c *GenerateCommand) Run(args []string) int {
 
 	subcommand := args[0]
 
-	switch subcommand {
-	case "endpoint":
-		MakeAllEndpoints(args[1])
-	case "integration":
-		log.Println("generating integrations are not implemented yet")
+	//assume that we're in the base polka directory
+	//confirm that by checking to see if ./app/ exists
+	if currentDir, err := os.Getwd(); err == nil  {
+		//TODO check to see if ./app/ exists
+		switch subcommand {
+		case "endpoint":
+			MakeAllEndpoints(currentDir, args[1])
+		case "integration":
+			log.Println("generating integrations are not implemented yet")
+		}
+		return 0
 	}
-
-	return 0
+	return 1
 }
 
 func (c *GenerateCommand) Synopsis() string {
