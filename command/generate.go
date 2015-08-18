@@ -50,47 +50,50 @@ func GetEndpoints() []string {
 
 func GenerateEndpoint(name string) {
 	concept := Concept{name}
-	endpoints := GetEndpoints()
+	for _, templateName := range GetEndpoints() {
+		FindAndExecuteTemplate(templateName, concept)
+	}
+}
+
+func MakeEndpointDir() (string, error) {
+	if appDir, err := GetAppDir(); err == nil {
+		endpointDir := fmt.Sprintf("%v/app/endpoint", appDir )
+		log.Printf("trying to make %v\n", endpointDir )
+		if err := os.MkdirAll(endpointDir, 0777); err == nil {
+			log.Printf("should have made %v\n", endpointDir )
+			return endpointDir, nil
+		} else {
+			return "", err
+		}
+	} else {
+		return "", err
+	}
+}
+
+func FindAndExecuteTemplate(templateName string, concept Concept) {
 
 	if templateDir, err := utils.FindTemplateDir(); err == nil {
 
-		appDir, err := GetAppDir()
-		if err != nil {
-			log.Fatal(err)
-		}
-		endpointDir := fmt.Sprintf("%v/app/endpoint", appDir )
+		if endpointDir, err := MakeEndpointDir(); err == nil {
+			//TODO assume that js is the only implementation language for now
+			templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
 
-		log.Printf("trying to make %v\n", endpointDir )
+			if t, err := template.ParseGlob(templatesGlob); err == nil {
 
-		if err := os.MkdirAll(endpointDir, 0777); err == nil  {
-
-			log.Printf("should have made %v\n", endpointDir )
-
-			for _, value := range endpoints {
-				//TODO assume that the implementation language will be JavaScript (js) for now
-
-
-				templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
-				t, err := template.ParseGlob(templatesGlob)
-				if err != nil {
-					log.Panic(err)
-				}
-
-
-				outputFileName := fmt.Sprintf("%v/%v", endpointDir, value )
-				//log.Println("generate endpoint---=-")
+				outputFileName := fmt.Sprintf("%v/%v", endpointDir, templateName )
 				log.Println(outputFileName)
 
-				outputFile, err := os.Create(outputFileName)
+				outputFilename, err := os.Create(outputFileName)
 
-				if err = t.ExecuteTemplate(outputFile, value, concept); err != nil {
-					log.Panic(err)
+				if err = t.ExecuteTemplate(outputFilename, templateName, concept); err != nil {
+					log.Fatal(err)
 				}
 			}
 		}
 	}
-
 }
+
+
 
 func (c *GenerateCommand) Run(args []string) int {
 	if len(args) < 2 {
