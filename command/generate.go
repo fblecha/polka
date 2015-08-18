@@ -79,12 +79,8 @@ func FindAndExecuteTemplate(templateName string, concept Concept) {
 			templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
 
 			if t, err := template.ParseGlob(templatesGlob); err == nil {
-
 				outputFileName := fmt.Sprintf("%v/%v", endpointDir, templateName )
-				log.Println(outputFileName)
-
 				outputFile, err := os.Create(outputFileName)
-
 				if err = t.ExecuteTemplate(outputFile, templateName, concept); err != nil {
 					log.Fatal(err)
 				}
