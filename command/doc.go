@@ -6,6 +6,7 @@ import (
 	"strings"
 	"os"
 	"fmt"
+	//"github.com/PolkaBand/polka/config"
 	//"encoding/json"
 	//"io/ioutil"
 	"path/filepath"
@@ -14,13 +15,6 @@ import (
 type DocCommand struct {
 	Name string
 	Ui   cli.Ui
-}
-
-type ResourceConfig struct {
-	Name 			string
-	RAM	 			int //in MB
-	Timeout		int //in seconds
-	AWSRegion string
 }
 
 
@@ -90,6 +84,7 @@ func DocResources() {
 			if fileInfo.Name() == "lambda_config.json" {
 				log.Printf("found %v in %v", fileInfo.Name(), path)
 /*
+
 				var resouce ResourceConfig
 				var jsontype jsonobject
 				json.Unmarshal(file, &resource)

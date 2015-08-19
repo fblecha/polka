@@ -11,6 +11,7 @@ import (
 	"log"
 	"strings"
 	"github.com/PolkaBand/polka/utils"
+	"github.com/PolkaBand/polka/config"
 	"text/template"
 )
 
@@ -52,6 +53,9 @@ func MakeAllEndpoints(currentDir string, conceptName string) {
 	concept := Concept{conceptName}
 	for _, templateName := range GetEndpoints() {
 		FindAndExecuteTemplate(currentDir, templateName, concept)
+		dir := strings.Split(templateName, ".")[0]
+		log.Printf("%q",strings.Split(templateName, "."))
+		config.Create(concept.Name, dir )
 	}
 }
 
