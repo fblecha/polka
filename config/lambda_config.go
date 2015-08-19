@@ -2,7 +2,7 @@ package config
 
 
 import (
-//	"log"
+	"log"
 	"os"
 	"fmt"
   "github.com/PolkaBand/polka/utils"
@@ -36,8 +36,11 @@ func Create(conceptName string, dir string) error {
   }
   //so we can create the config for conceptName as
   //./config/{dir}/{conceptName}_lambdaconfig.json
-  configDir := fmt.Sprintf("%v/config/%v", appRootDir, dir)
-  filename := fmt.Sprintf("%v/%v_lambdaconfig.json", configDir, conceptName )
+  configDir := fmt.Sprintf("%v/config/%v", appRootDir, conceptName)
+	log.Printf("configDir = %v \n", configDir)
+  filename := fmt.Sprintf("%v/%v_lambdaconfig.json", configDir, dir )
+	log.Printf("configFilename = %v \n", filename)
+
   if err := os.MkdirAll(configDir, 0777); err != nil {
     return err
   }
