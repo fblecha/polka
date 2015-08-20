@@ -7,8 +7,8 @@ package command
 import (
 	"fmt"
 	"github.com/mitchellh/cli"
-	"os"
 	"log"
+	"os"
 	"strings"
 	//"text/template"
 )
@@ -19,17 +19,15 @@ type NewCommand struct {
 }
 
 type PolkaDir struct {
-	RootDir string 	//root dir absolute path e.g. /Users/fb3/code/todo_app
-	DirName string  //relative name to RootDir, e.g. app, test, config
+	RootDir string //root dir absolute path e.g. /Users/fb3/code/todo_app
+	DirName string //relative name to RootDir, e.g. app, test, config
 }
 
 func (d *PolkaDir) Create() error {
 	newDir := fmt.Sprintf("%v/%v", d.RootDir, d.DirName)
-	log.Printf("creating %v \n", newDir )
+	log.Printf("creating %v \n", newDir)
 	return os.MkdirAll(newDir, 0777)
 }
-
-
 
 func (c *NewCommand) Help() string {
 	helpText := `
@@ -60,8 +58,8 @@ func CreateNewApp(rootDir string, name string) {
 	CreateAppRootDir(appDir)
 
 	childDirs := [...]PolkaDir{
-		{appDir, "app"}, //the primary app location -- most new code will go in here
-		{appDir, "bin"}, //app specific commands -- note that "generic" commmands will be installed as part of polka
+		{appDir, "app"},    //the primary app location -- most new code will go in here
+		{appDir, "bin"},    //app specific commands -- note that "generic" commmands will be installed as part of polka
 		{appDir, "config"}, //central source for the app config
 		{appDir, "test"},
 	}
@@ -79,7 +77,7 @@ func (c *NewCommand) Run(args []string) int {
 	}
 	//assume that we want to create app with name args[0] in the current working directory
 
-	if currentDir, err := os.Getwd(); err == nil  {
+	if currentDir, err := os.Getwd(); err == nil {
 		CreateNewApp(currentDir, args[0])
 		return 0
 	} else {

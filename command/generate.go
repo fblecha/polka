@@ -6,12 +6,12 @@ package command
 
 import (
 	"fmt"
-	"github.com/mitchellh/cli"
-	"os"
-	"log"
-	"strings"
-	"github.com/PolkaBand/polka/utils"
 	"github.com/PolkaBand/polka/config"
+	"github.com/PolkaBand/polka/utils"
+	"github.com/mitchellh/cli"
+	"log"
+	"os"
+	"strings"
 	"text/template"
 )
 
@@ -48,26 +48,20 @@ func GetEndpoints() []string {
 	return endpoints
 }
 
-
 func MakeAllEndpoints(currentDir string, conceptName string) {
 	concept := Concept{conceptName}
 	for _, templateName := range GetEndpoints() {
 		FindAndExecuteTemplate(currentDir, templateName, concept)
 		dir := strings.Split(templateName, ".")[0]
-		log.Printf("%q",strings.Split(templateName, "."))
-		config.Create(concept.Name, dir )
+		log.Printf("%q", strings.Split(templateName, "."))
+		config.Create(concept.Name, dir)
 	}
 }
 
 func MakeEndpointDir(currentDir string, concept Concept) (string, error) {
-	endpointDir := fmt.Sprintf("%v/app/endpoint/%v", currentDir, concept.Name )
-	log.Printf("trying to make %v\n", endpointDir )
-	if err := os.MkdirAll(endpointDir, 0777); err == nil {
-		log.Printf("should have made %v\n", endpointDir )
-		return endpointDir, nil
-	} else {
-		return "", err
-	}
+	endpointDir := fmt.Sprintf("%v/app/endpoint/%v", currentDir, concept.Name)
+	log.Printf("trying to make %v\n", endpointDir)
+	return endpointDir, os.MkdirAll(endpointDir, 0777)
 }
 
 func FindAndExecuteTemplate(currentDir string, templateName string, concept Concept) error {
@@ -82,13 +76,13 @@ func FindAndExecuteTemplate(currentDir string, templateName string, concept Conc
 		return err
 	}
 	//TODO assume that js is the only implementation language for now
-	templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir )
+	templatesGlob := fmt.Sprintf("%v/js/endpoint/*.js", templateDir)
 
 	t, err := template.ParseGlob(templatesGlob)
 	if err != nil {
 		return err
 	}
-	outputFileName := fmt.Sprintf("%v/%v", endpointDir, templateName )
+	outputFileName := fmt.Sprintf("%v/%v", endpointDir, templateName)
 	outputFile, err := os.Create(outputFileName)
 	if err != nil {
 		return err
@@ -96,9 +90,12 @@ func FindAndExecuteTemplate(currentDir string, templateName string, concept Conc
 	return t.ExecuteTemplate(outputFile, templateName, concept)
 }
 
-
-
 func (c *GenerateCommand) Run(args []string) int {
+	if _, err := utils.AreWeInAppRootDir(); err != nil {
+
+		return 1
+	}
+
 	if len(args) < 2 {
 		fmt.Printf("%v", c.Help())
 		return 1
@@ -108,7 +105,7 @@ func (c *GenerateCommand) Run(args []string) int {
 
 	//assume that we're in the base polka directory
 	//confirm that by checking to see if ./app/ exists
-	if currentDir, err := os.Getwd(); err == nil  {
+	if currentDir, err := os.Getwd(); err == nil {
 		//TODO check to see if ./app/ exists
 		switch subcommand {
 		case "endpoint":

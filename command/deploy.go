@@ -13,7 +13,6 @@ type DeployCommand struct {
 	Ui   cli.Ui
 }
 
-
 func (c *DeployCommand) Help() string {
 	helpText := `
 Usage: polka deploy [subcommand]

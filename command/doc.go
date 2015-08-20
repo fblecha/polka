@@ -1,11 +1,11 @@
 package command
 
 import (
+	"fmt"
 	"github.com/mitchellh/cli"
 	"log"
-	"strings"
 	"os"
-	"fmt"
+	"strings"
 	//"github.com/PolkaBand/polka/config"
 	//"encoding/json"
 	//"io/ioutil"
@@ -16,7 +16,6 @@ type DocCommand struct {
 	Name string
 	Ui   cli.Ui
 }
-
 
 func (c *DocCommand) Help() string {
 	helpText := `
@@ -67,8 +66,6 @@ func DocArchitecture() {
 
 }
 
-
-
 //DocResources emits a summary table
 func DocResources() {
 	//let's just do endpoints initially
@@ -83,13 +80,13 @@ func DocResources() {
 		if fileInfo, err := os.Lstat(path); err == nil {
 			if fileInfo.Name() == "lambda_config.json" {
 				log.Printf("found %v in %v", fileInfo.Name(), path)
-/*
+				/*
 
-				var resouce ResourceConfig
-				var jsontype jsonobject
-				json.Unmarshal(file, &resource)
-				fmt.Printf("Results: %v\n", resource)
-*/
+					var resouce ResourceConfig
+					var jsontype jsonobject
+					json.Unmarshal(file, &resource)
+					fmt.Printf("Results: %v\n", resource)
+				*/
 			}
 			return nil
 		} else {
@@ -97,6 +94,6 @@ func DocResources() {
 		}
 	}
 
-	err = filepath.Walk(location, configLoader);
+	err = filepath.Walk(location, configLoader)
 	log.Println(err)
 }
