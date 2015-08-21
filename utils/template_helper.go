@@ -1,16 +1,17 @@
 package utils
 
 import (
-  "log"
-  "fmt"
-  "os"
-  "errors"
-  "github.com/kardianos/osext"
+	"errors"
+	"fmt"
+	"github.com/kardianos/osext"
+	"log"
+	"os"
 )
-func TemplateDirExists(dirName string) bool  {
+
+func TemplateDirExists(dirName string) bool {
 	log.Printf("looking in %v\n", dirName)
-	_, err := os.Stat(dirName);
-	return err == nil  //if err == true, we found the dir; it's false otherwise
+	_, err := os.Stat(dirName)
+	return err == nil //if err == true, we found the dir; it's false otherwise
 }
 
 // FindTemplateDir returns the absolute path to the templates directory as a string.

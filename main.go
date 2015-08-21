@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/mitchellh/cli"
 	"log"
 	"os"
-	"github.com/mitchellh/cli"
 )
 
 func main() {

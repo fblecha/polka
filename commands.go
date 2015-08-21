@@ -47,7 +47,6 @@ func init() {
 			}, nil
 		},
 
-
 		"version": func() (cli.Command, error) {
 			ver := "0.0.1"
 			rel := "a"
