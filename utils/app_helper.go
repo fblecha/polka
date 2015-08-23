@@ -3,6 +3,7 @@ package utils
 import (
 	//"log"
 	//"encoding/json"
+	"github.com/PolkaBand/polka/hidden_home"
 	"fmt"
 	"os"
 )
@@ -50,5 +51,5 @@ func CreatePolkaHomeConfigAsNeeded() {
 	config := PolkaConfig {
 		Name: "blah",
 	}
-	Save(homeDir, "~/.polka/polka_config.json", config)
+	hidden_home.Save(homeDir, "~/.polka/polka_config.json", config)
 }

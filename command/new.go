@@ -7,6 +7,7 @@ package command
 import (
 	"fmt"
 	"github.com/mitchellh/cli"
+	"github.com/PolkaBand/polka/hidden_home"
 	"log"
 	"os"
 	"strings"
@@ -52,11 +53,7 @@ func CreateAppRootDir(name string) error {
 	return nil
 }
 
-func CreateNewApp(rootDir string, name string) {
-	appDir := fmt.Sprintf("%v/%v", rootDir, name)
-
-	CreateAppRootDir(appDir)
-
+func CreateChildDirs(appDir string) {
 	childDirs := [...]PolkaDir{
 		{appDir, "app"},    //the primary app location -- most new code will go in here
 		{appDir, "bin"},    //app specific commands -- note that "generic" commmands will be installed as part of polka
@@ -68,6 +65,18 @@ func CreateNewApp(rootDir string, name string) {
 			panic(err)
 		}
 	}
+}
+
+
+
+
+
+func CreateNewApp(rootDir string, name string) {
+	appDir := fmt.Sprintf("%v/%v", rootDir, name)
+
+	CreateAppRootDir(appDir)
+	CreateChildDirs(appDir)
+	hidden_home.Create(name)
 }
 
 func (c *NewCommand) Run(args []string) int {
