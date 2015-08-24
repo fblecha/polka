@@ -12,7 +12,7 @@
 <!-- /TOC -->
 
 
-__The following completely does not work, but is README driven development__.  E.g. write how you want the readme to work/read first, then implement the code.
+__The following is getting dangerously close to actually working___ This is README driven development, e.g. write how you want the readme to work first, then implement the code.
 
 # Quick Start
 
