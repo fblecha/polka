@@ -1,3 +1,5 @@
+//Package command provides all the commands that can be executed by polka.
+//There is a 1:1 mapping between "polka command" and command.go existing in this package.
 package command
 
 import (

@@ -1,3 +1,4 @@
+//Package utils contains polka specific utility functions.
 package utils
 
 import (

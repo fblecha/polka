@@ -1,3 +1,4 @@
+//Package config handles the lambda configuration - both loading and saving config files from disk.
 package config
 
 import (

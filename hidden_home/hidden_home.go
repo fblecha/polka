@@ -1,3 +1,4 @@
+//Package hidden_home provides utilities for dealing with ~/.dirname hidden confirmation directories.
 package hidden_home
 
 import (
@@ -7,13 +8,13 @@ import (
 	"strings"
 )
 
-//DoesPolkaHomeDirExist returns true or false based on the existance of the ~/.polka directory
+//Exists returns true or false based on the existance of the ~/.polka directory
 func Exists(name string) bool {
 	_, err := os.Stat(name)
 	return err == nil
 }
 
-//CreatePolkaHomeDir creates ~/.basename
+//Create creates ~/.basename
 func Create(basename string) error {
 	//TODO see if homedir starts with "~/."
 	var absoluteDirName string
@@ -25,7 +26,7 @@ func Create(basename string) error {
 	return os.Mkdir(absoluteDirName, 0777)
 }
 
-//Save will save the json output of config into the file named ~/.basename/configleFilename
+//Save will save the json marshal output of config into the file named ~/.basename/configFilename.json
 func Save(basename string, configFilename, config interface{}) error {
 	if !Exists(basename) {
 		if err := Create(basename); err != nil {
