@@ -1,3 +1,6 @@
+[![GoDoc](https://godoc.org/github.com/PolkaBand/polka?status.svg)](https://godoc.org/github.com/PolkaBand/polka)
+
+
 ***Totally experimental still - use at your own risk :-)***
 
 <!-- TOC depth:6 withLinks:1 updateOnSave:1 orderedList:0 -->
