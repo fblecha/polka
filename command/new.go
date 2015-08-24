@@ -6,8 +6,8 @@ package command
 
 import (
 	"fmt"
-	"github.com/mitchellh/cli"
 	"github.com/PolkaBand/polka/hidden_home"
+	"github.com/mitchellh/cli"
 	"log"
 	"os"
 	"strings"
@@ -66,10 +66,6 @@ func CreateChildDirs(appDir string) {
 		}
 	}
 }
-
-
-
-
 
 func CreateNewApp(rootDir string, name string) {
 	appDir := fmt.Sprintf("%v/%v", rootDir, name)
