@@ -20,7 +20,8 @@ func Exists(dirname string) bool {
   }
   return true
 }
-//ExpandTilde assumes that it was passed in basename and needs to expand it to /Users/fb3/.basename
+//ExpandTilde assumes that it was passed in basename and needs to expand
+//it to /Users/fb3/.basename (as an example)
 func ExpandTilde(basename string) string {
   usr, _ := user.Current()
   homedir := usr.HomeDir
