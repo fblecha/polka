@@ -1,5 +1,4 @@
-[![GoDoc](https://godoc.org/github.com/PolkaBand/polka?status.svg)](https://godoc.org/github.com/PolkaBand/polka)
-
+[![GoDoc](https://godoc.org/github.com/PolkaBand/polka?status.svg)](https://godoc.org/github.com/PolkaBand/polka) [![Build Status](https://drone.io/github.com/PolkaBand/polka/status.png)](https://drone.io/github.com/PolkaBand/polka/latest)
 
 ***Totally experimental still - use at your own risk :-)***
 
