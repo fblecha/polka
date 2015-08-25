@@ -5,7 +5,6 @@ import (
 	//"log"
 	//"encoding/json"
 	"fmt"
-	"github.com/PolkaBand/polka/hidden_home"
 	"os"
 )
 
@@ -44,14 +43,4 @@ func AreWeInAppRootDir() (string, error) {
 	}
 	//if we made it here, all the checkDirs exist, which means we should be good
 	return currentDir, nil
-}
-
-//CreatePolkaHomeConfig creates ~/.polka if it doesn't exist already.
-//It then places the contents of PolkaConfig into it as ~/.polka/polka_config.json
-func CreatePolkaHomeConfigAsNeeded() {
-	homeDir := "~/.polka"
-	config := PolkaConfig{
-		Name: "blah",
-	}
-	hidden_home.Save(homeDir, "~/.polka/polka_config.json", config)
 }
