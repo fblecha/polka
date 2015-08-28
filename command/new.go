@@ -6,7 +6,6 @@ package command
 
 import (
 	"fmt"
-	"github.com/PolkaBand/polka/hidden_home"
 	"github.com/mitchellh/cli"
 	"log"
 	"os"
@@ -72,7 +71,6 @@ func CreateNewApp(rootDir string, name string) {
 
 	CreateAppRootDir(appDir)
 	CreateChildDirs(appDir)
-	hidden_home.Create(name)
 }
 
 func (c *NewCommand) Run(args []string) int {

@@ -4,11 +4,14 @@ import (
 	"github.com/mitchellh/cli"
 	"log"
 	"os"
+	"github.com/PolkaBand/polka/config"
 )
 
 func main() {
 
 	args := os.Args[1:]
+
+	config.CreatePolkaHomeConfigAsNeeded()
 
 	cli := &cli.CLI{
 		Args:     args,

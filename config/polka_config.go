@@ -1,6 +1,6 @@
 package config
 import (
-	"github.com/PolkaBand/polka/hidden_home"
+	"github.com/fblecha/homeplate"
 )
 
 type PolkaConfig struct {
@@ -12,7 +12,7 @@ type PolkaConfig struct {
 func CreatePolkaHomeConfigAsNeeded() {
 	homeDir := "~/.polka"
 	config := PolkaConfig{
-		Name: "blah",
+		Name: "polka",
 	}
-	hidden_home.Save(homeDir, "~/.polka/polka_config.json", config)
+	homeplate.Save(homeDir, "~/.polka/polka_config.json", config, false)
 }
