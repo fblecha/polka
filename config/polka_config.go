@@ -8,8 +8,8 @@ type PolkaConfig struct {
 }
 
 func (p *PolkaConfig) Save() {
-	homeDir := "~/.polka"
-	homeplate.Save(homeDir, "~/.polka/polka_config.json", p, false)
+	homeDir := "polka"
+	homeplate.Save(homeDir, "polka", p, false)
 }
 
 
