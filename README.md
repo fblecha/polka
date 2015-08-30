@@ -34,6 +34,12 @@ What needs to be setup for polka to work?
 * AWS Services
 * AWS IAM users/roles/policies
 
+## AWS Credentials
+
+Currently, polka assumes your AWS credentials are configured.  E.g., it assumes:
+* Your credentials exist at ~/.aws/credentials  ( See this [AWS blog post](http://blogs.aws.amazon.com/security/post/Tx3D6U6WSFGOK2H/A-New-and-Standardized-Way-to-Manage-Credentials-in-the-AWS-SDKs) on setting up your credentials )
+
+
 # Polka Commands
 
 ```shell
