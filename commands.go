@@ -19,6 +19,13 @@ func init() {
 
 	Commands = map[string]cli.CommandFactory{
 
+		"config": func() (cli.Command, error) {
+			return &command.ConfigCommand{
+				Name: "blah",
+				Ui:   ui,
+			}, nil
+		},
+
 		"deploy": func() (cli.Command, error) {
 			return &command.DeployCommand{
 				Name: "blah",
