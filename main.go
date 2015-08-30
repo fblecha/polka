@@ -7,11 +7,13 @@ import (
 	"github.com/PolkaBand/polka/config"
 )
 
+var Config config.PolkaConfig
+
 func main() {
 
 	args := os.Args[1:]
 
-	config.CreatePolkaHomeConfigAsNeeded()
+	Config = config.CreatePolkaHomeConfigAsNeeded()
 
 	cli := &cli.CLI{
 		Args:     args,
