@@ -1,10 +1,10 @@
 package main
 
 import (
+	"github.com/PolkaBand/polka/config"
 	"github.com/mitchellh/cli"
 	"log"
 	"os"
-	"github.com/PolkaBand/polka/config"
 )
 
 var Config config.PolkaConfig
