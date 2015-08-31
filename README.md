@@ -48,9 +48,11 @@ $ polka
 usage: polka [--version] [--help] <command> [<args>]
 
 Available commands are:
+    config      configure a global polka app item
     deploy      deploys a polka app to AWS
     doc         Generates documentation for your polka app
     generate    generates lambda functions for endpoints
     new         creates a new polka app
     version     Prints the Polka version
+
 ```
