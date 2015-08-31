@@ -88,7 +88,6 @@ func FindAndExecuteTemplate(currentDir string, templateName string, concept Conc
 
 func (c *GenerateCommand) Run(args []string) int {
 	if _, err := utils.AreWeInAppRootDir(); err != nil {
-
 		return 1
 	}
 
