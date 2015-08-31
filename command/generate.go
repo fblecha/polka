@@ -20,10 +20,6 @@ type GenerateCommand struct {
 	Ui   cli.Ui
 }
 
-type Concept struct {
-	Name string
-}
-
 func (c *GenerateCommand) Help() string {
 	helpText := `
 Usage: polka generate [subcommand] concept
