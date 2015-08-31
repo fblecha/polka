@@ -33,6 +33,13 @@ func init() {
 			}, nil
 		},
 
+		"destroy": func() (cli.Command, error) {
+			return &command.DestroyCommand{
+				Name: "blah",
+				Ui:   ui,
+			}, nil
+		},
+
 		"doc": func() (cli.Command, error) {
 			return &command.DocCommand{
 				Name: "blah",
