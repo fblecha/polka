@@ -21,8 +21,9 @@ func init() {
 
 		"config": func() (cli.Command, error) {
 			return &command.ConfigCommand{
-				Name: "blah",
-				Ui:   ui,
+				Name:   "blah",
+				Ui:     ui,
+				Config: MyAppConfig,
 			}, nil
 		},
 
