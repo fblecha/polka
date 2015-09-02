@@ -49,7 +49,7 @@ func (c *ConfigCommand) Run(args []string) int {
 	//confirm that by checking to see if ./app/ exists
 
 	switch subcommand {
-		case "s3":
+	case "s3":
 		//e.g. polka config s3 s3://SomeUrlHere/Etc
 		c.ConfigureS3(args[1])
 		return 0

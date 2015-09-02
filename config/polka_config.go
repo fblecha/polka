@@ -1,10 +1,10 @@
 package config
 
 import (
+	"encoding/json"
 	"fmt"
 	"github.com/fblecha/homeplate"
 	"os"
-	"encoding/json"
 )
 
 type PolkaConfig struct {
@@ -37,13 +37,13 @@ func CreatePolkaHomeConfigAsNeeded() (PolkaConfig, error) {
 	} else {
 		//load the old file
 		configFile, err := os.Open(abspath)
-    if err != nil {
-        return config, err
-    }
-    jsonParser := json.NewDecoder(configFile)
-    if err = jsonParser.Decode(&config); err != nil {
+		if err != nil {
 			return config, err
-    }
+		}
+		jsonParser := json.NewDecoder(configFile)
+		if err = jsonParser.Decode(&config); err != nil {
+			return config, err
+		}
 	}
 	return config, nil
 }
