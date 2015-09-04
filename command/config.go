@@ -14,7 +14,7 @@ import (
 type ConfigCommand struct {
 	Name   string
 	Ui     cli.Ui
-	Config config.AppConfig
+	Config config.ProjectConfig
 }
 
 func (c *ConfigCommand) Help() string {
@@ -32,11 +32,11 @@ Items:
 }
 
 func (c *ConfigCommand) Run(args []string) int {
-	if appDir, err := utils.AreWeInAppRootDir(); err != nil {
+	if appDir, err := utils.AreWeInProjectDir(); err != nil {
 		fmt.Printf("%v", NotInAppDirectoryMessage())
 		return 1
 	} else {
-		config.CreateAppConfigAsNeeded(appDir)
+		config.CreateProjectConfigAsNeeded(appDir)
 	}
 
 	if len(args) < 2 {

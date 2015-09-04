@@ -23,7 +23,7 @@ func init() {
 			return &command.ConfigCommand{
 				Name:   "blah",
 				Ui:     ui,
-				Config: MyAppConfig,
+				Config: MyProjectConfig,
 			}, nil
 		},
 

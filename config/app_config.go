@@ -4,22 +4,23 @@ import (
 	"fmt"
 )
 
-type AppConfig struct {
-	AppDir string
+type ProjectConfig struct {
+	ProjectDir string
   S3 string
 }
 
-func (p *AppConfig) Save() {
+func (p *ProjectConfig) Save() {
 
 }
 
-func (p *AppConfig) Exists() bool {
+func (p *ProjectConfig) Exists() bool {
   return false
 }
 
-func CreateAppConfigAsNeeded(appDir string) (AppConfig, error) {
-	var config AppConfig
-  config.AppDir = fmt.Sprintf("%s/config/%s", appDir, "app.json")
+func CreateProjectConfigAsNeeded(appDir string) (ProjectConfig, error) {
+	var config ProjectConfig
+  config.ProjectDir = fmt.Sprintf("%s/config/%s", appDir, "app.json")
+	fmt.Printf("app.json stored in %s \n", config.ProjectDir)
   config.S3 = ""
 	if !config.Exists() {
 		config.Save()
