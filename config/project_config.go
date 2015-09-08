@@ -15,7 +15,7 @@ type ProjectConfig struct {
 
 func (p *ProjectConfig) Save(overwrite bool) {
 	if err := fileutils.Save(p.ProjectDir, "app.json", p  ); err != nil {
-		fmt.Println(err)
+		log.Println(err)
 	}
 }
 
@@ -35,6 +35,7 @@ func CreateProjectConfigAsNeeded(appDir string) (ProjectConfig, error) {
 		log.Println("loaded existing app.json")
 		abspath := fmt.Sprintf("%s/app.json", config.ProjectDir)
 		configFile, err := os.Open(abspath)
+		defer configFile.Close()
 		if err != nil {
 				return config, err
 		}

@@ -28,6 +28,8 @@ func Exists(pathname string) bool {
 func Save(pathname string, filename, config interface{} ) error {
 	absfilename := fmt.Sprintf("%s/%s", pathname, filename)
   configFile, err := os.Open(absfilename)
+	defer configFile.Close()
+
   if err != nil {
 		//if the file doesn't exist, try to open it for create
     configFile, err = os.Create(absfilename)
@@ -40,8 +42,7 @@ func Save(pathname string, filename, config interface{} ) error {
   if b, err := json.MarshalIndent(config, "", "  "); err == nil {
     configFile.Write(b)
 		configFile.Sync()
-		defer configFile.Close()
-		log.Printf("wrote %v to \n file %s \n", config, absfilename )
+		//log.Printf("wrote %v to \n file %s \n", config, absfilename )
 
     return nil
   } else {

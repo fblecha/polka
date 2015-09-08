@@ -6,7 +6,6 @@ import (
 	"github.com/mitchellh/cli"
 	"log"
 	"os"
-	"fmt"
 )
 
 var Config config.PolkaConfig
@@ -49,12 +48,12 @@ func handleCommandOutsideOfProjectDir(args []string) {
 		default:
 			if appDir, err = utils.AreWeInAppRootDir(); err == nil {
 				//otherwise, make sure we have the AppConfig setup
-				MyProjectConfig, err = config.CreateProjectConfigAsNeeded(appDir)  //TODO remote?
+				MyProjectConfig, err = config.CreateProjectConfigAsNeeded(appDir)
 				if err != nil {
 					log.Panic(err)
 				}
 			} else {
-				fmt.Println(err)
+				log.Println(err)
 			}
 		}
 	}
