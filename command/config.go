@@ -5,7 +5,7 @@ import (
 	"github.com/PolkaBand/polka/config"
 	"github.com/PolkaBand/polka/utils"
 	"github.com/mitchellh/cli"
-	"log"
+	//"log"
 	//"os"
 	"strings"
 	//"text/template"
@@ -32,11 +32,11 @@ Items:
 }
 
 func (c *ConfigCommand) Run(args []string) int {
-	if appDir, err := utils.AreWeInProjectDir(); err != nil {
+	if _, err := utils.AreWeInProjectDir(); err != nil {
 		fmt.Printf("%v", NotInAppDirectoryMessage())
 		return 1
 	} else {
-		config.CreateProjectConfigAsNeeded(appDir)
+		// config.CreateProjectConfigAsNeeded(appDir)  //TODO needed?
 	}
 
 	if len(args) < 2 {
@@ -62,7 +62,6 @@ func (c *ConfigCommand) Synopsis() string {
 }
 
 func (c *ConfigCommand) ConfigureS3(s3url string) {
-	log.Printf("s3url = %s \n", s3url)
 	c.Config.S3 = s3url
-	c.Config.Save()
+	c.Config.Save(true)
 }

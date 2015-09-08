@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"os"
+	"log"
   //"os/user"
 	//"strings"
 )
@@ -24,37 +25,24 @@ func Exists(pathname string) bool {
 
 //Save will save the json marshal output of config into the file named dirname/filename.json
 //If overwrite is false, and the file exists, an error will be returned
-func Save(pathname string, filename, config interface{}, overwrite bool) error {
-	fullFilename := fmt.Sprintf("%s/%s", pathname, filename)
-
-	if overwrite {
-		//overwrite == true then we write it either way
-    return createAndWrite(fullFilename, config)
-	} else {
-		//overwrite == false
-		if Exists(fullFilename) {
-			//overwrite == false && Exists == true
-      return fmt.Errorf("Unable to create %s as it exists and did not set overwrite to true", fullFilename)
-		} else {
-      return createAndWrite(fullFilename, config)
-		}
-	}
-}
-
-
-func createAndWrite(absfilename string, config interface{} ) error  {
-	fmt.Println("blah")
+func Save(pathname string, filename, config interface{} ) error {
+	absfilename := fmt.Sprintf("%s/%s", pathname, filename)
   configFile, err := os.Open(absfilename)
   if err != nil {
+		//if the file doesn't exist, try to open it for create
     configFile, err = os.Create(absfilename)
+		log.Printf("createAndWrite writing %v \n", config)
 		if err != nil {
 			return err
 		}
   }
   //save json to file
-	fmt.Printf("writing file %v", configFile )
   if b, err := json.MarshalIndent(config, "", "  "); err == nil {
     configFile.Write(b)
+		configFile.Sync()
+		defer configFile.Close()
+		log.Printf("wrote %v to \n file %s \n", config, absfilename )
+
     return nil
   } else {
     return err

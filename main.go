@@ -49,7 +49,7 @@ func handleCommandOutsideOfProjectDir(args []string) {
 		default:
 			if appDir, err = utils.AreWeInAppRootDir(); err == nil {
 				//otherwise, make sure we have the AppConfig setup
-				MyProjectConfig, err = config.CreateProjectConfigAsNeeded(appDir)
+				MyProjectConfig, err = config.CreateProjectConfigAsNeeded(appDir)  //TODO remote?
 				if err != nil {
 					log.Panic(err)
 				}
