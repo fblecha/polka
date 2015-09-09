@@ -22,7 +22,6 @@ func main() {
 
 	handleCommandOutsideOfProjectDir(args)
 
-
 	cli := &cli.CLI{
 		Args:     args,
 		Commands: Commands,
