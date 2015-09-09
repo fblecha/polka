@@ -11,7 +11,6 @@ import (
 	"github.com/mitchellh/cli"
 	"log"
 	"os"
-	"io"
 	"strings"
 	"text/template"
 )
