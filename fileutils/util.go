@@ -3,9 +3,10 @@ package fileutils
 
 import (
 	"encoding/json"
-	"fmt"
+	//"fmt"
 	"os"
 	"log"
+
   //"os/user"
 	//"strings"
 )
@@ -25,14 +26,12 @@ func Exists(pathname string) bool {
 
 //Save will save the json marshal output of config into the file named dirname/filename.json
 //If overwrite is false, and the file exists, an error will be returned
-func Save(pathname string, filename, config interface{} ) error {
-	absfilename := fmt.Sprintf("%s/%s", pathname, filename)
-  configFile, err := os.Open(absfilename)
+func save(filePath string, config interface{} ) error {
+  configFile, err := os.Open(filePath)
 	defer configFile.Close()
-
   if err != nil {
 		//if the file doesn't exist, try to open it for create
-    configFile, err = os.Create(absfilename)
+    configFile, err = os.Create(filePath)
 		log.Printf("createAndWrite writing %v \n", config)
 		if err != nil {
 			return err

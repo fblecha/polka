@@ -14,7 +14,6 @@ import (
 type ConfigCommand struct {
 	Name   string
 	Ui     cli.Ui
-	Config config.ProjectConfig
 }
 
 func (c *ConfigCommand) Help() string {
@@ -25,7 +24,7 @@ Configure a global polka item that applies to the entire app.
 
 Items:
 
-	s3	the root bucket for this app \n
+	s3	the root bucket for this app 
 
 `
 	return strings.TrimSpace(helpText)
@@ -51,7 +50,7 @@ func (c *ConfigCommand) Run(args []string) int {
 	switch subcommand {
 		case "s3":
 		//e.g. polka config s3 s3://SomeUrlHere/Etc
-		c.ConfigureS3(args[1])
+		c.configureS3(args[1])
 		return 0
 	}
 	return 1
@@ -61,7 +60,9 @@ func (c *ConfigCommand) Synopsis() string {
 	return "configure a global polka app item"
 }
 
-func (c *ConfigCommand) ConfigureS3(s3url string) {
-	c.Config.S3 = s3url
-	c.Config.Save(true)
+func (c *ConfigCommand) configureS3(s3url string) {
+	if config, err := config.LoadProjectConfig(); err == nil {
+		config.S3 = s3url
+		config.Save()
+	}
 }

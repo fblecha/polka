@@ -1,49 +1,53 @@
 package config
 
 import (
-	"github.com/PolkaBand/polka/fileutils"
+	"github.com/PolkaBand/polka/utils"
 	"fmt"
 	"log"
 	"os"
+	"io/ioutil"
 	"encoding/json"
 )
 
 type ProjectConfig struct {
-	ProjectDir string
   S3 string
 }
 
-func (p *ProjectConfig) Save(overwrite bool) {
-	if err := fileutils.Save(p.ProjectDir, "app.json", p  ); err != nil {
-		log.Println(err)
-	}
-}
-
-func (p *ProjectConfig) Exists() bool {
-  return false
-}
-
-func CreateProjectConfigAsNeeded(appDir string) (ProjectConfig, error) {
+func LoadProjectConfig() (ProjectConfig, error) {
 	var config ProjectConfig
-  config.ProjectDir = fmt.Sprintf("%s/config", appDir)
-  config.S3 = ""
-	if !config.Exists() {
-		log.Println("created new app.json")
-		config.Save(true)
-	} else {
-		//load the old file
+	if appDir, err := utils.AreWeInAppRootDir(); err == nil {
+		//attempt to load the old file
+
 		log.Println("loaded existing app.json")
-		abspath := fmt.Sprintf("%s/app.json", config.ProjectDir)
+		abspath := fmt.Sprintf("%s/config/app.json", appDir)
 		configFile, err := os.Open(abspath)
 		defer configFile.Close()
-		if err != nil {
+		if err == nil {
+			jsonParser := json.NewDecoder(configFile)
+			if err = jsonParser.Decode(&config); err == nil {
 				return config, err
+			} else {
+				return config, err
+			}
+		} else {
+			//ok, that failed, let's make a new one and return it.  Not that it is **not saved**.
+			return config, nil
 		}
-		jsonParser := json.NewDecoder(configFile)
-		if err = jsonParser.Decode(&config); err != nil {
-			return config, err
-		}
-
+	} else {
+		//ok, that failed, let's make a new one and return it.  Not that it is **not saved**.
+		return config, err
 	}
-	return config, nil
+}
+
+//Save this project config in config/app.json.  Always overwrites the previous file.
+func (p *ProjectConfig) Save() {
+	if appDir, err := utils.AreWeInAppRootDir(); err == nil {
+		fileName := fmt.Sprintf("%s/config/app.json", appDir )
+		if b, err := json.MarshalIndent(p, "", "  "); err == nil {
+
+			if err := ioutil.WriteFile(fileName, b, 0644); err != nil {
+				log.Println(err)
+			}
+		}
+	}
 }

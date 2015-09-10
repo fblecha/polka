@@ -9,7 +9,6 @@ import (
 )
 
 var Config config.PolkaConfig
-var MyProjectConfig config.ProjectConfig
 
 func main() {
 	args := os.Args[1:]
@@ -37,20 +36,13 @@ func main() {
 }
 
 func handleCommandOutsideOfProjectDir(args []string) {
-	var err error
-	var appDir string
-
 	if len(args) > 0 {
 		switch args[0] {
 		case "new":
 			//do nothing in the case of the "new" command
 		default:
-			if appDir, err = utils.AreWeInAppRootDir(); err == nil {
+			if _, err := utils.AreWeInAppRootDir(); err == nil {
 				//otherwise, make sure we have the AppConfig setup
-				MyProjectConfig, err = config.CreateProjectConfigAsNeeded(appDir)
-				if err != nil {
-					log.Panic(err)
-				}
 			} else {
 				log.Println(err)
 			}
